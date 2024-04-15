@@ -17,13 +17,13 @@ type Modular interface {
 }
 
 var (
-	mods = map[string]Modular{}
-	mux  = sync.Mutex{}
+	mods  = map[string]Modular{}
+	mutex = sync.Mutex{}
 )
 
 func Register(modular Modular) {
-	mux.Lock()
-	defer mux.Unlock()
+	mutex.Lock()
+	defer mutex.Unlock()
 	if _, ok := mods[modular.Name()]; ok {
 		panic("modular already registered: " + modular.Name())
 	}
@@ -32,8 +32,8 @@ func Register(modular Modular) {
 
 func LoadModules() []Modular {
 	var modules []Modular
-	mux.Lock()
-	defer mux.Unlock()
+	mutex.Lock()
+	defer mutex.Unlock()
 	for _, mod := range mods {
 		modules = append(modules, mod)
 	}
