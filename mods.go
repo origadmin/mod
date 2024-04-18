@@ -21,6 +21,7 @@ var (
 	modsMu = sync.Mutex{}
 )
 
+// Register registers a module with the given name
 func Register(name string, modular Modular) {
 	modsMu.Lock()
 	defer modsMu.Unlock()

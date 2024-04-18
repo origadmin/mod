@@ -1,4 +1,3 @@
 package mods
 
-type Config struct {
-}
+type Config any
